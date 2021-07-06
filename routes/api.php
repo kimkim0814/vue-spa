@@ -1,4 +1,5 @@
 <?php
+Route::get('/tasks', 'App\Http\Controllers\TaskController@index');
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
