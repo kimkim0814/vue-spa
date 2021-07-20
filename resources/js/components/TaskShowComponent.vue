@@ -26,17 +26,26 @@
 </template>
 
 <script>
+    
     export default {
-        props: ['taskId'],
+
+         props: {
+            taskId: [String,Number]
+        },
+        
+        // props:["taskId"],
           data: function () {
+           
            return {
                task: {}
            }
        },
        methods: {
            getTask() {
+               console.log(this.taskId);
                axios.get('/api/tasks/' + this.taskId)
                    .then((res) => {
+                       console.log(res.data);
                        this.task = res.data;
                    });
            }

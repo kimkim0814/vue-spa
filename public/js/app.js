@@ -1937,7 +1937,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      task: {}
+    };
+  },
+  methods: {
+    submit: function submit() {
+      var _this = this;
+
+      axios.post('/api/tasks', this.task).then(function (res) {
+        _this.$router.push({
+          name: 'task.list'
+        });
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -2102,7 +2119,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['taskId'],
+  props: {
+    taskId: [String, Number]
+  },
+  // props:["taskId"],
   data: function data() {
     return {
       task: {}
@@ -2112,7 +2132,9 @@ __webpack_require__.r(__webpack_exports__);
     getTask: function getTask() {
       var _this = this;
 
+      console.log(this.taskId);
       axios.get('/api/tasks/' + this.taskId).then(function (res) {
+        console.log(res.data);
         _this.task = res.data;
       });
     }
@@ -38171,17 +38193,20 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-sm-6" }, [
-          _c("form", [
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-sm-6" }, [
+        _c(
+          "form",
+          {
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.submit.apply(null, arguments)
+              }
+            }
+          },
+          [
             _c("div", { staticClass: "form-group row" }, [
               _c(
                 "label",
@@ -38193,8 +38218,25 @@ var staticRenderFns = [
               ),
               _vm._v(" "),
               _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.task.title,
+                    expression: "task.title"
+                  }
+                ],
                 staticClass: "col-sm-9 form-control",
-                attrs: { type: "text", id: "title" }
+                attrs: { type: "text", id: "title" },
+                domProps: { value: _vm.task.title },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.task, "title", $event.target.value)
+                  }
+                }
               })
             ]),
             _vm._v(" "),
@@ -38209,8 +38251,25 @@ var staticRenderFns = [
               ),
               _vm._v(" "),
               _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.task.content,
+                    expression: "task.content"
+                  }
+                ],
                 staticClass: "col-sm-9 form-control",
-                attrs: { type: "text", id: "content" }
+                attrs: { type: "text", id: "content" },
+                domProps: { value: _vm.task.content },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.task, "content", $event.target.value)
+                  }
+                }
               })
             ]),
             _vm._v(" "),
@@ -38225,8 +38284,25 @@ var staticRenderFns = [
               ),
               _vm._v(" "),
               _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.task.person_in_charge,
+                    expression: "task.person_in_charge"
+                  }
+                ],
                 staticClass: "col-sm-9 form-control",
-                attrs: { type: "text", id: "person-in-charge" }
+                attrs: { type: "text", id: "person-in-charge" },
+                domProps: { value: _vm.task.person_in_charge },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.task, "person_in_charge", $event.target.value)
+                  }
+                }
               })
             ]),
             _vm._v(" "),
@@ -38235,12 +38311,13 @@ var staticRenderFns = [
               { staticClass: "btn btn-primary", attrs: { type: "submit" } },
               [_vm._v("Submit")]
             )
-          ])
-        ])
+          ]
+        )
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
