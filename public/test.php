@@ -1,0 +1,3 @@
+<?
+echo 'test';
+$a = 'aaa';
